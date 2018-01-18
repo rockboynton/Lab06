@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="677.0" prefHeight="803.0" prefWidth="677.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boyntonrl.Controller">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="677.0" prefWidth="677.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="709.0" minHeight="10.0" prefHeight="689.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <VBox prefWidth="100.0">
+         <children>
+            <HBox alignment="CENTER_RIGHT">
+               <children>
+                  <Label alignment="TOP_RIGHT" text="URL">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="urlTextField" onAction="#analyze" prefHeight="25.0" prefWidth="426.0" text="http://msoe.us/taylor/se1021/Lab6">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </TextField>
+                  <Button fx:id="analyzeButton" mnemonicParsing="false" onAction="#analyze" prefHeight="25.0" prefWidth="170.0" text="Analyze" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT">
+               <children>
+                  <Label text="Size" />
+                  <TextField fx:id="sizeTextField" editable="false" prefHeight="25.0" prefWidth="143.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </TextField>
+                  <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="90.0" text="Download Time">
+                     <HBox.margin>
+                        <Insets left="23.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="downloadTimeTextField" editable="false" prefWidth="340.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="66.0">
+               <children>
+                  <Label text="Port" />
+                  <TextField fx:id="portTextField" editable="false" prefHeight="25.0" prefWidth="135.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </TextField>
+                  <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="31.0" text="Host">
+                     <HBox.margin>
+                        <Insets left="90.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="hostTextField" editable="false" prefWidth="340.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0">
+               <children>
+                  <Label text="Timeout" />
+                  <TextField fx:id="timeoutTextField" onAction="#setTimeout" prefWidth="426.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </TextField>
+                  <Button fx:id="setButton" mnemonicParsing="false" onAction="#setTimeout" prefWidth="170.0" text="Set" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <TextArea fx:id="contentTextArea" editable="false" GridPane.rowIndex="1" />
+   </children>
+</GridPane>
