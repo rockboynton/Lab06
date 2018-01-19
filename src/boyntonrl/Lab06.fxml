@@ -26,7 +26,7 @@
                         <Insets left="50.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="urlTextField" onAction="#analyze" prefHeight="25.0" prefWidth="426.0" text="http://msoe.us/taylor/se1021/Lab6">
+                  <TextField fx:id="URLTextField" onAction="#analyze" prefHeight="25.0" prefWidth="426.0" text="http://msoe.us/taylor/se1021/Lab6">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -45,9 +45,9 @@
                         <Insets />
                      </HBox.margin>
                   </TextField>
-                  <Label alignment="CENTER_RIGHT" text="Download Time">
+                  <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="91.0" text="Download Time">
                      <HBox.margin>
-                        <Insets left="23.0" />
+                        <Insets left="22.0" />
                      </HBox.margin>
                   </Label>
                   <TextField fx:id="downloadTimeTextField" editable="false" prefWidth="340.0" />
@@ -56,14 +56,14 @@
             <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="66.0">
                <children>
                   <Label text="Port" />
-                  <TextField fx:id="portTextField" editable="false" prefHeight="25.0" prefWidth="135.0">
+                  <TextField fx:id="portTextField" editable="false" prefHeight="25.0" prefWidth="143.0">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                   </TextField>
                   <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="31.0" text="Host">
                      <HBox.margin>
-                        <Insets left="90.0" />
+                        <Insets left="82.0" />
                      </HBox.margin>
                   </Label>
                   <TextField fx:id="hostTextField" editable="false" prefWidth="340.0" />
@@ -72,7 +72,7 @@
             <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0">
                <children>
                   <Label text="Timeout" />
-                  <TextField fx:id="timeoutTextField" onAction="#setTimeout" prefWidth="426.0">
+                  <TextField fx:id="timeoutTextField" onAction="#setTimeout" prefWidth="426.0" text="10000">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -82,6 +82,6 @@
             </HBox>
          </children>
       </VBox>
-      <TextArea fx:id="contentTextArea" editable="false" GridPane.rowIndex="1" />
+      <TextArea fx:id="contentTextArea" editable="false" wrapText="true" GridPane.rowIndex="1" />
    </children>
 </GridPane>

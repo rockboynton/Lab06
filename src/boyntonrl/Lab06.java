@@ -1,5 +1,6 @@
 package boyntonrl;
 
+import edu.msoe.se1021.Lab6.WebsiteTester;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +17,7 @@ public class Lab06 extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("Lab06.fxml"));
         primaryStage.setTitle("Website Tester");
         primaryStage.setScene(new Scene(root, 677, 803));
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
