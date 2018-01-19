@@ -33,6 +33,9 @@
                   </TextField>
                   <Button fx:id="analyzeButton" mnemonicParsing="false" onAction="#analyze" prefHeight="25.0" prefWidth="170.0" text="Analyze" />
                </children>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
             </HBox>
             <HBox alignment="CENTER_RIGHT">
                <children>
@@ -42,7 +45,7 @@
                         <Insets />
                      </HBox.margin>
                   </TextField>
-                  <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="90.0" text="Download Time">
+                  <Label alignment="CENTER_RIGHT" text="Download Time">
                      <HBox.margin>
                         <Insets left="23.0" />
                      </HBox.margin>
