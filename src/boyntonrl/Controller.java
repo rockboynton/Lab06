@@ -1,9 +1,17 @@
+/*
+ * SE1021 - 021
+ * Winter 2017
+ * Lab: Lab 6 Exceptions
+ * Name: Rock Boynton
+ * Created: 1/18/18
+ */
+
 package boyntonrl;
 
 import edu.msoe.se1021.Lab6.WebsiteTester;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.*; // use of * for many different controls
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -11,10 +19,13 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.Optional;
 
+/**
+ * Controller class for the Lab06 (WebsiteTester) JavaFX application
+ */
 public class Controller {
 
     @FXML
-    private TextField URLTextField;
+    private TextField urlTextField;
     @FXML
     private Button analyzeButton;
     @FXML
@@ -37,9 +48,8 @@ public class Controller {
     @FXML
     private void analyze(ActionEvent event) {
         try {
-//            tester = new WebsiteTester();
             tester.setTimeout(timeoutTextField.getText());
-            tester.openURL(URLTextField.getText());
+            tester.openURL(urlTextField.getText());
             tester.openConnection();
             tester.downloadText();
             sizeTextField.setText("" + tester.getSize());
@@ -50,27 +60,12 @@ public class Controller {
         } catch (MalformedURLException e) {
             showInvalidURLAlert();
         } catch (SocketTimeoutException e) {
-            Alert timeoutDialog = new Alert(Alert.AlertType.CONFIRMATION, "");
-            timeoutDialog.setTitle("Timeout Dialog");
-            timeoutDialog.setHeaderText("Wait Longer?");
-            timeoutDialog.setContentText("There has been a timeout reaching the site. Click OK to " +
-                    "extend the timeout period?");
-            Optional<ButtonType> choice = timeoutDialog.showAndWait();
+            // ask if user wants to set a new timeout
+            Optional<ButtonType> choice = showSocketTimeoutAlert();
+            // sets new timeout if they chose to set new timeout
             if (choice.get() == ButtonType.OK) {
-                TextInputDialog setTimeoutDialog = new TextInputDialog("");
-                setTimeoutDialog.setTitle("Set timeout");
-                setTimeoutDialog.setHeaderText("Set extended timeout");
-                setTimeoutDialog.setContentText("Desired timeout: ");
-                Optional<String> newTimeout = setTimeoutDialog.showAndWait();
-                newTimeout.ifPresent(timeout -> {
-                    try {
-                        tester.setTimeout(String.valueOf(newTimeout));
-                        timeoutTextField.setText(String.valueOf(newTimeout));
-                    } catch (NumberFormatException invalidNum) {
-                        showInvalidTimeoutAlert();
-                    }
-                }); // TODO test if that is a valid timeout timeoutTextField.setText(String.valueOf(newTimeout))
-
+                Optional<String> newTimeout = showSetTimeoutDialog();
+                setNewTimeout(newTimeout);
             }
         } catch (UnknownHostException e) {
             showInvalidHostAlert();
@@ -79,54 +74,79 @@ public class Controller {
         }
     }
 
+    private void setNewTimeout(Optional<String> newTimeout) {
+        newTimeout.ifPresent(timeout -> {
+            try {
+                if (Integer.parseInt(timeout) <= 0) {
+                    throw new NumberFormatException();
+                }
+                timeoutTextField.setText(timeout);
+                tester.setTimeout(timeoutTextField.getText());
+            } catch (NumberFormatException invalidNum) {
+                showInvalidTimeoutAlert();
+            }
+        });
+    }
+
+    private Optional<String> showSetTimeoutDialog() {
+        TextInputDialog setTimeoutDialog = new TextInputDialog("");
+        setTimeoutDialog.setTitle("Set timeout");
+        setTimeoutDialog.setHeaderText("Set extended timeout");
+        setTimeoutDialog.setContentText("Desired timeout: ");
+        return setTimeoutDialog.showAndWait();
+    }
+
+    private Optional<ButtonType> showSocketTimeoutAlert() {
+        Alert timeoutDialog = new Alert(Alert.AlertType.CONFIRMATION, "");
+        timeoutDialog.setTitle("Timeout Dialog");
+        timeoutDialog.setHeaderText("Wait Longer?");
+        timeoutDialog.setContentText("There has been a timeout reaching the site. Click OK to " +
+                "extend the timeout period?");
+        return timeoutDialog.showAndWait();
+    }
+
     private void showInvalidHostAlert() {
-        Alert invalidHostAlert = new Alert(Alert.AlertType.ERROR, "Error: unable to reach the " +
-                "host " + URLTextField.getText());
+        Alert invalidHostAlert = new Alert(Alert.AlertType.ERROR, "Error: unable to " +
+                "reach the host " + urlTextField.getText());
         invalidHostAlert.setTitle("Error Dialog");
         invalidHostAlert.setHeaderText("Host Error");
         invalidHostAlert.showAndWait();
-        URLTextField.setText("");
+        urlTextField.setText("");
     }
 
     private void showInvalidURLAlert() {
-        Alert invalidURLAlert = new Alert(Alert.AlertType.ERROR, "The URL entered in the text box is invalid");
+        Alert invalidURLAlert = new Alert(Alert.AlertType.ERROR, "The URL entered in " +
+                "the text box is invalid");
         invalidURLAlert.setTitle("Error Dialog");
         invalidURLAlert.setHeaderText("URL Error");
         invalidURLAlert.showAndWait();
-        URLTextField.setText("");
+        urlTextField.setText("");
     }
 
     private void showFileNotFoundAlert() {
         Alert fileNotFoundAlert = new Alert(Alert.AlertType.ERROR, "Error: File " +
-                "not found on the server " + URLTextField.getText());
+                "not found on the server " + urlTextField.getText());
         fileNotFoundAlert.setTitle("Error Dialog");
         fileNotFoundAlert.setHeaderText("URL Error");
         fileNotFoundAlert.showAndWait();
-        URLTextField.setText("");
+        urlTextField.setText("");
     }
 
     @FXML
-    private void setTimeout(ActionEvent event) {
-
-        // TODO make sure number is greater than 0
-        if () {
-            try {
-                tester.setTimeout(timeoutTextField.getText());
-            } catch (NumberFormatException e) {
-                showInvalidTimeoutAlert();
+    private void setTimeout(ActionEvent e) {
+        try {
+            if (Integer.parseInt(timeoutTextField.getText()) <= 0) {
+                throw new NumberFormatException();
             }
-        } else {
-        }
-        if (temp < 0) {
-            throw new NumberFormatException("Timeout must be greater than or equal to 0.");
-        } else {
-            this.timeout = temp;
+            tester.setTimeout(timeoutTextField.getText());
+        } catch (NumberFormatException invalidNum) {
+            showInvalidTimeoutAlert();
         }
     }
 
     private void showInvalidTimeoutAlert() {
-        Alert invalidTimeout = new Alert(Alert.AlertType.ERROR, "The timeout entered in the " +
-                "text box is invalid");
+        Alert invalidTimeout = new Alert(Alert.AlertType.ERROR, "The timeout entered" +
+                " in the text box is invalid");
         invalidTimeout.setTitle("Error Dialog");
         invalidTimeout.setHeaderText("Invalid Timeout");
         invalidTimeout.showAndWait();
