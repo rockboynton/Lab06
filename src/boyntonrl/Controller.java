@@ -65,7 +65,7 @@ public class Controller {
             // sets new timeout if they chose to set new timeout
             if (choice.get() == ButtonType.OK) {
                 Optional<String> newTimeout = showSetTimeoutDialog();
-                setNewTimeout(newTimeout);
+                setNewTimeout(newTimeout, event);
             }
         } catch (UnknownHostException e) {
             showInvalidHostAlert();
@@ -74,7 +74,7 @@ public class Controller {
         }
     }
 
-    private void setNewTimeout(Optional<String> newTimeout) {
+    private void setNewTimeout(Optional<String> newTimeout, ActionEvent event) {
         newTimeout.ifPresent(timeout -> {
             try {
                 if (Integer.parseInt(timeout) <= 0) {
@@ -82,6 +82,7 @@ public class Controller {
                 }
                 timeoutTextField.setText(timeout);
                 tester.setTimeout(timeoutTextField.getText());
+                analyze(event);
             } catch (NumberFormatException invalidNum) {
                 showInvalidTimeoutAlert();
             }
